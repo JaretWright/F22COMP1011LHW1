@@ -1,0 +1,57 @@
+package com.example.f22comp1011lhw1;
+
+public class Product {
+    private String name, manufacturer, description;
+    private double price;
+
+    public Product(String name, String manufacturer, String description, double price) {
+        setName(name);
+        setManufacturer(manufacturer);
+        setDescription(description);
+        setPrice(price);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if (name.matches("[a-zA-Z\\s]*"))
+            this.name = name;
+        else
+            throw new IllegalArgumentException("name can only contain letters a-Z");
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        if (manufacturer.matches("[a-zA-Z\\s]*"))
+            this.manufacturer = manufacturer;
+        else
+            throw new IllegalArgumentException("manufacturer can only contain letters a-Z");
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        if (description.trim().length()<=250)
+            this.description = description.trim();
+        else
+            throw new IllegalArgumentException("description must be a max of 250 characters");
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        if (price>=0 && price<=1000)
+            this.price = price;
+        else
+            throw new IllegalArgumentException("price must be in the range of 0-1000");
+    }
+}
