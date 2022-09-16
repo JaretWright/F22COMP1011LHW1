@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.TreeMap;
 
 public class HelloApplication extends Application {
     @Override
@@ -20,6 +21,13 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         Product product = new Product("foofoo","Molsons","tasty stuff",1.00);
         product.setName("Canadian");
+
+        TreeMap bottleTypes = Beer.getBottleTypes();
+        System.out.println("Types of bottles: " + bottleTypes.keySet());
+        System.out.println("volumes: " + bottleTypes.values());
+        System.out.println(bottleTypes);
+        System.out.println("Volume in a tall can: "+bottleTypes.get("tall can"));
+
 
         launch();
     }

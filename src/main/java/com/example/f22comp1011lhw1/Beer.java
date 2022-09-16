@@ -2,19 +2,19 @@ package com.example.f22comp1011lhw1;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 public class Beer extends Product{
     private String type, countryOfOrigin, bottleType;
     private float alcoholPercentage;
-    private int volume, rating;
+    private float rating;
 
-    public Beer(String name, String manufacturer, String description, double price, String type, String countryOfOrigin, String bottleType, float alcoholPercentage, int volume, int rating) {
+    public Beer(String name, String manufacturer, String description, double price, String type, String countryOfOrigin, String bottleType, float alcoholPercentage, int rating) {
         super(name, manufacturer, description, price);
         setType(type);
         setCountryOfOrigin(countryOfOrigin);
         setBottleType(bottleType);
         setAlcoholPercentage(alcoholPercentage);
-        setVolume(volume);
         setRating(rating);
     }
 
@@ -62,10 +62,20 @@ public class Beer extends Product{
         return bottleType;
     }
 
-
-    public List<String> getBottleTypes()
+    /**
+     * Maps define key -> value pairs, much like a dictionary in C#
+     *
+     * @return
+     */
+    public static TreeMap<String, Integer> getBottleTypes()
     {
-        return Arrays.asList("can", "tall can", "bottle", "keg");
+        TreeMap<String, Integer> bottlesTypes = new TreeMap<>();
+        bottlesTypes.put("can", 355);
+        bottlesTypes.put("tall can", 473);
+        bottlesTypes.put("bottle", 355);
+        bottlesTypes.put("mini keg", 5000);
+        bottlesTypes.put("Molson crazy can",740);
+        return bottlesTypes;
     }
 
     /**
@@ -74,7 +84,12 @@ public class Beer extends Product{
      */
     public void setBottleType(String bottleType) {
 
-        this.bottleType = bottleType;
+        bottleType = bottleType.trim().toLowerCase();
+        if (getBottleTypes().keySet().contains(bottleType))
+            this.bottleType = bottleType;
+        else
+            throw new IllegalArgumentException(bottleType + " is not valid, use one of "
+                                +getBottleTypes());
     }
 
     public float getAlcoholPercentage() {
@@ -82,22 +97,28 @@ public class Beer extends Product{
     }
 
     public void setAlcoholPercentage(float alcoholPercentage) {
-        this.alcoholPercentage = alcoholPercentage;
+        if (alcoholPercentage>=2 && alcoholPercentage<=15)
+            this.alcoholPercentage = alcoholPercentage;
+        else
+            throw new IllegalArgumentException("alcohol percentage must be in the " +
+                                                        "range of 2-15");
+
     }
 
     public int getVolume() {
-        return volume;
+        return getBottleTypes().get(bottleType);
     }
 
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    /**
+     *
+     * @param rating
+     */
+    public void setRating(float rating) {
         this.rating = rating;
     }
 }
