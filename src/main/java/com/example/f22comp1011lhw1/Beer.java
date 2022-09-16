@@ -1,6 +1,7 @@
 package com.example.f22comp1011lhw1;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -25,9 +26,11 @@ public class Beer extends Product{
     /**
      * The beer store will only support certain types of beer.  This method returns a list with all the valid types
      */
-    public List<String> getBeerTypes()
+    public static List<String> getBeerTypes()
     {
-        return Arrays.asList("Lager","IPA","Stout","Ale");
+        List<String> beerTypes = Arrays.asList("Lager","IPA","Stout","Ale","Amber");
+        Collections.sort(beerTypes);
+        return beerTypes;
     }
 
     /**
@@ -52,7 +55,7 @@ public class Beer extends Product{
      * @param countryOfOrigin
      */
     public void setCountryOfOrigin(String countryOfOrigin) {
-        if (countryOfOrigin.matches("[A-Z]3"))
+        if (countryOfOrigin.matches("[A-Z]{3}"))
             this.countryOfOrigin = countryOfOrigin;
         else
             throw new IllegalArgumentException("country of origin must be the 3 letter country code");
@@ -74,7 +77,7 @@ public class Beer extends Product{
         bottlesTypes.put("tall can", 473);
         bottlesTypes.put("bottle", 355);
         bottlesTypes.put("mini keg", 5000);
-        bottlesTypes.put("Molson crazy can",740);
+        bottlesTypes.put("crazy can",740);
         return bottlesTypes;
     }
 
@@ -120,5 +123,10 @@ public class Beer extends Product{
      */
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String toString()
+    {
+        return String.format("%s - $%.2f" , getName(), getPrice());
     }
 }
