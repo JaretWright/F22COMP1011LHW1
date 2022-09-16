@@ -18,6 +18,9 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        Product product = new Product("foofoo","Molsons","tasty stuff",1.00);
+        product.setName("Canadian");
+
         launch();
     }
 }

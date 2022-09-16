@@ -15,6 +15,11 @@ public class Product {
         return name;
     }
 
+    /**
+     * setName receives a String as an argument, validates that it contains only letters or spaces
+     * and sets the instance variable
+     * @param name
+     */
     public void setName(String name) {
         if (name.matches("[a-zA-Z\\s]*"))
             this.name = name;
