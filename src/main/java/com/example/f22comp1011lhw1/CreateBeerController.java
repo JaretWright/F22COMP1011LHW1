@@ -1,5 +1,7 @@
 package com.example.f22comp1011lhw1;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -50,6 +52,34 @@ public class CreateBeerController implements Initializable {
         typeOfBeerComboBox.getItems().addAll(Beer.getBeerTypes());
 
         bottleTypeComboBox.getItems().addAll(Beer.getBottleTypes().keySet());
+
+        outputLabel.setText("");
+
+        //setup a change listener for the price
+//        PriceChangeListener pcl = new PriceChangeListener();
+//        priceTextField.textProperty().addListener(pcl);
+
+        //Anonymous inner class
+//        priceTextField.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+//                priceTextField.setText(newValue.replaceAll("[^(0-9)]*",""));
+//            }
+//        });
+
+        //as a lambda expression
+        priceTextField.textProperty().addListener((obs, oldValue, newValue)->{
+            newValue = newValue.replaceAll("[^(0-9.)]*","");
+            try{
+                Double.parseDouble(newValue);
+                priceTextField.setText(newValue);
+            }
+            catch (Exception e)
+            {
+                priceTextField.setText(oldValue);
+            }
+        });
+
     }
 
     /**
