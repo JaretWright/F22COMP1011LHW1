@@ -55,6 +55,7 @@ public class Beer extends Product{
      * @param countryOfOrigin
      */
     public void setCountryOfOrigin(String countryOfOrigin) {
+        countryOfOrigin = countryOfOrigin.toUpperCase();
         if (countryOfOrigin.matches("[A-Z]{3}"))
             this.countryOfOrigin = countryOfOrigin;
         else

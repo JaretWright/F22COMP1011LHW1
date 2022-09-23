@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
@@ -42,7 +43,12 @@
                   <Label text="Description" GridPane.rowIndex="2" />
                   <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="400.0" promptText="A refreshing start to the weekend" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Price" GridPane.rowIndex="3" />
-                  <TextField fx:id="priceTextField" prefWidth="400.0" promptText="\$3.15" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <Label prefHeight="39.0" prefWidth="40.0" text="\$" />
+                        <TextField fx:id="priceTextField" prefWidth="325.0" promptText="3.15" />
+                     </children>
+                  </HBox>
                   <ComboBox fx:id="typeOfBeerComboBox" prefWidth="400.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Type of Beer" GridPane.rowIndex="4" />
                   <Label text="Country of Origin" GridPane.rowIndex="5" />
