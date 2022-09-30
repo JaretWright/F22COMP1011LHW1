@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -19,9 +20,8 @@ public class Main extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        ArrayList<CountryCode> countries = DBUtility.getCountryCodesFromDB();
-        System.out.println(countries);
+    public static void main(String[] args) throws SQLException {
+        ArrayList<Manufacturer> manufacturers = DBUtility.getManufacturersFromDB();
         launch();
     }
 }

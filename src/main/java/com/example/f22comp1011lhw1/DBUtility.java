@@ -1,9 +1,6 @@
 package com.example.f22comp1011lhw1;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DBUtility {
@@ -60,4 +57,33 @@ public class DBUtility {
         return countries;
     }
 
+    public static ArrayList<Manufacturer> getManufacturersFromDB() throws SQLException {
+        ArrayList<Manufacturer> manufacturers = new ArrayList<>();
+        String sql = "SELECT * from manufacturers";
+        try(
+                Connection conn = DriverManager.getConnection(connURL, user, pw);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        )
+        {
+        try{
+            //loop over the resultSet and create CountryCode objects
+            while (resultSet.next())
+            {
+                int id = resultSet.getInt("manufacturerID");
+                String name = resultSet.getString("name");
+                String countryCode = resultSet.getString("countryCode");
+                Manufacturer manufacturer = new Manufacturer(id,name,countryCode);
+                manufacturers.add(manufacturer);
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null)
+                resultSet.close();
+        }
+        return manufacturers;
+        }
+    }
 }
