@@ -59,7 +59,7 @@ public class DBUtility {
 
     public static ArrayList<Manufacturer> getManufacturersFromDB() {
         ArrayList<Manufacturer> manufacturers = new ArrayList<>();
-        String sql = "SELECT * from manufacturers";
+        String sql = "SELECT * from manufacturers ORDER BY name";
         try (
                 Connection conn = DriverManager.getConnection(connURL, user, pw);
                 Statement statement = conn.createStatement();

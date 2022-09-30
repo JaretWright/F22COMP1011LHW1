@@ -27,9 +27,6 @@ public class CreateBeerController implements Initializable {
     private ComboBox<String> bottleTypeComboBox;
 
     @FXML
-    private TextField countryTextField;
-
-    @FXML
     private TextArea descriptionTextArea;
 
     @FXML
@@ -83,15 +80,6 @@ public class CreateBeerController implements Initializable {
 //            }
 //        });
 
-        //configure the country textfield to only accept 3 letter country codes.
-        countryTextField.textProperty().addListener((obs, oldValue, newValue)->{
-            newValue = newValue.replaceAll("[^(a-zA-Z)*]","");
-            countryTextField.setText(newValue);
-            if (newValue.length()>3)
-            {  System.out.println(oldValue);
-                countryTextField.setText(oldValue);}
-        });
-
         //configure the alcohol % to only accept doubles
         alchoholTextField.textProperty().addListener((obs, oldValue, newValue)->{
             try{
@@ -128,13 +116,13 @@ public class CreateBeerController implements Initializable {
     {
         //check if the fields have been populated
         if (allFieldsHaveValues()) {
+
             try {
                 Beer beer = new Beer(nameTextField.getText(),
                         manufacturerComboBox.getValue(),
                         descriptionTextArea.getText(),
                         Double.parseDouble(priceTextField.getText()),
                         typeOfBeerComboBox.getValue(),
-                        countryTextField.getText(),
                         bottleTypeComboBox.getValue(),
                         Float.parseFloat(alchoholTextField.getText()),
                         ratingSpinner.getValue());
@@ -181,9 +169,6 @@ public class CreateBeerController implements Initializable {
 
         if (typeOfBeerComboBox.getValue() == null)
             message = message.concat("type, ");
-
-        if (countryTextField.getText().isBlank())
-            message = message.concat("country, ");
 
         if (bottleTypeComboBox.getValue()==null)
             message = message.concat("bottle type, ");

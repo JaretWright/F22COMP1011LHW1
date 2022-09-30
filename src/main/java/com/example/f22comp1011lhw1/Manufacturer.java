@@ -33,4 +33,9 @@ public class Manufacturer {
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }
+
+    public String toString()
+    {
+        return name;
+    }
 }

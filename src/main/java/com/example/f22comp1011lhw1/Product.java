@@ -1,10 +1,11 @@
 package com.example.f22comp1011lhw1;
 
 public class Product {
-    private String name, manufacturer, description;
+    private String name, description;
+    private Manufacturer manufacturer;
     private double price;
 
-    public Product(String name, String manufacturer, String description, double price) {
+    public Product(String name, Manufacturer manufacturer, String description, double price) {
         setName(name);
         setManufacturer(manufacturer);
         setDescription(description);
@@ -27,15 +28,12 @@ public class Product {
             throw new IllegalArgumentException("name can only contain letters a-Z");
     }
 
-    public String getManufacturer() {
+    public Manufacturer getManufacturer() {
         return manufacturer;
     }
 
-    public void setManufacturer(String manufacturer) {
-        if (manufacturer.matches("[a-zA-Z\\s]*"))
+    public void setManufacturer(Manufacturer manufacturer) {
             this.manufacturer = manufacturer;
-        else
-            throw new IllegalArgumentException("manufacturer can only contain letters a-Z");
     }
 
     public String getDescription() {

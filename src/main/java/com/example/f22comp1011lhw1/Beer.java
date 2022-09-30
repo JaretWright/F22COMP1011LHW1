@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class Beer extends Product{
-    private String type, countryOfOrigin, bottleType;
+    private String type, bottleType;
     private float alcoholPercentage;
     private float rating;
 
-    public Beer(String name, String manufacturer, String description, double price, String type, String countryOfOrigin, String bottleType, float alcoholPercentage, int rating) {
+    public Beer(String name, Manufacturer manufacturer, String description, double price, String type, String bottleType, float alcoholPercentage, int rating) {
         super(name, manufacturer, description, price);
         setType(type);
-        setCountryOfOrigin(countryOfOrigin);
         setBottleType(bottleType);
         setAlcoholPercentage(alcoholPercentage);
         setRating(rating);
@@ -46,21 +45,9 @@ public class Beer extends Product{
     }
 
     public String getCountryOfOrigin() {
-        return countryOfOrigin;
+        return super.getManufacturer().getCountryCode();
     }
 
-    /**
-     * Checks if the argument is 3 capital letters to represent a country
-     * code.  Actual validation of the 3 letters is not performed
-     * @param countryOfOrigin
-     */
-    public void setCountryOfOrigin(String countryOfOrigin) {
-        countryOfOrigin = countryOfOrigin.toUpperCase();
-        if (countryOfOrigin.matches("[A-Z]{3}"))
-            this.countryOfOrigin = countryOfOrigin;
-        else
-            throw new IllegalArgumentException("country of origin must be the 3 letter country code");
-    }
 
     public String getBottleType() {
         return bottleType;
