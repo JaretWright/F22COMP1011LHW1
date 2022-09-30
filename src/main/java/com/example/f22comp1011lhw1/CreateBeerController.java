@@ -42,14 +42,14 @@ public class CreateBeerController implements Initializable {
     private Spinner<Integer> ratingSpinner;
 
     @FXML
-    private ComboBox<String> typeOfBeerComboBox;
+    private ComboBox<BeerType> typeOfBeerComboBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //update the ComboBox objects with a collection
         manufacturerComboBox.getItems().addAll(DBUtility.getManufacturersFromDB());
 
-        typeOfBeerComboBox.getItems().addAll(Beer.getBeerTypes());
+        typeOfBeerComboBox.getItems().addAll(DBUtility.getBeerTypes());
 
         bottleTypeComboBox.getItems().addAll(Beer.getBottleTypes().keySet());
 

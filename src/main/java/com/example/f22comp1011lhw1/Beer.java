@@ -6,20 +6,25 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class Beer extends Product{
-    private String type, bottleType;
+    private String bottleType;
+    private BeerType beerType;
     private float alcoholPercentage;
     private float rating;
 
-    public Beer(String name, Manufacturer manufacturer, String description, double price, String type, String bottleType, float alcoholPercentage, int rating) {
+    public Beer(String name, Manufacturer manufacturer, String description, double price, BeerType beerType, String bottleType, float alcoholPercentage, int rating) {
         super(name, manufacturer, description, price);
-        setType(type);
+        setBeerType(beerType);
         setBottleType(bottleType);
         setAlcoholPercentage(alcoholPercentage);
         setRating(rating);
     }
 
-    public String getType() {
-        return type;
+    public BeerType getBeerType() {
+        return beerType;
+    }
+
+    public void setBeerType(BeerType beerType) {
+        this.beerType = beerType;
     }
 
     /**
@@ -30,18 +35,6 @@ public class Beer extends Product{
         List<String> beerTypes = Arrays.asList("Lager","IPA","Stout","Ale","Amber");
         Collections.sort(beerTypes);
         return beerTypes;
-    }
-
-    /**
-     * This method will validate that the type provided matches one of the valid types and set the instance
-     * variable
-     * @param type
-     */
-    public void setType(String type) {
-        if (getBeerTypes().contains(type))
-            this.type = type;
-        else
-            throw new IllegalArgumentException(type + " is not valid, use one of " + getBeerTypes());
     }
 
     public String getCountryOfOrigin() {

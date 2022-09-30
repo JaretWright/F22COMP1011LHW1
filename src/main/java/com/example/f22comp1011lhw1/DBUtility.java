@@ -78,4 +78,25 @@ public class DBUtility {
             }
         return manufacturers;
     }
+
+    public static ArrayList<BeerType> getBeerTypes() {
+        ArrayList<BeerType> beerTypes = new ArrayList<>();
+        String sql = "SELECT * from beerTypes ORDER BY name";
+        try (
+                Connection conn = DriverManager.getConnection(connURL, user, pw);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        ) {
+            //loop over the resultSet and create CountryCode objects
+            while (resultSet.next()) {
+                int id = resultSet.getInt("beerTypeID");
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                beerTypes.add(new BeerType(id,name,description));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return beerTypes;
+    }
 }
