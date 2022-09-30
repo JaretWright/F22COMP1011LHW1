@@ -5,6 +5,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.converter.CurrencyStringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -14,6 +16,9 @@ public class CreateBeerController implements Initializable {
 
     @FXML
     private Label outputLabel;
+
+    @FXML
+    private Label priceLabel;
 
     @FXML
     private TextField alchoholTextField;
@@ -69,20 +74,17 @@ public class CreateBeerController implements Initializable {
 //        });
 
         //as a lambda expression
-        priceTextField.textProperty().addListener((obs, oldValue, newValue)->{
-            newValue = newValue.replaceAll("[^(0-9.)]*","");
-            try{
-//                Double money = Double.parseDouble(newValue);
-//                NumberFormat formatter = NumberFormat.getCurrencyInstance();
-//                String moneyString = formatter.format(money);
-//                System.out.println(moneyString);
-              priceTextField.setText(newValue);
-            }
-            catch (Exception e)
-            {
-                priceTextField.setText(oldValue);
-            }
-        });
+//        priceTextField.textProperty().addListener((obs, oldValue, newValue)->{
+//            System.out.printf("oldValue: '%s' newValue: '%s'%n",oldValue, newValue);
+//            try{
+//                double value = Double.parseDouble(newValue);
+//                CurrencyStringConverter nsc = new CurrencyStringConverter(Locale.CANADA);
+//                priceLabel.setText(nsc.toString(value));
+//            }catch(Exception e)
+//            {
+//                    priceTextField.setText(oldValue);
+//            }
+//        });
 
         //configure the country textfield to only accept 3 letter country codes.
         countryTextField.textProperty().addListener((obs, oldValue, newValue)->{
@@ -200,5 +202,20 @@ public class CreateBeerController implements Initializable {
         outputLabel.setText(message);
 
         return false;
+    }
+
+    @FXML
+    private void priceFieldUpdated()
+    {
+        String text = priceTextField.getText();
+        if (text.length()==0)
+            priceLabel.setText("$");
+        try{
+            double value = Double.parseDouble(text);
+            CurrencyStringConverter nsc = new CurrencyStringConverter(Locale.CANADA);
+            priceLabel.setText(nsc.toString(value));
+        }catch(Exception e){
+            priceLabel.setText("only #'s for price");
+        }
     }
 }

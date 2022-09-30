@@ -45,8 +45,8 @@
                   <Label text="Price" GridPane.rowIndex="3" />
                   <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Label prefHeight="39.0" prefWidth="40.0" text="\$" />
-                        <TextField fx:id="priceTextField" prefWidth="325.0" promptText="3.15" />
+                        <TextField fx:id="priceTextField" onKeyReleased="#priceFieldUpdated" prefWidth="200.0" promptText="3.15" />
+                        <Label fx:id="priceLabel" text="\$" />
                      </children>
                   </HBox>
                   <ComboBox fx:id="typeOfBeerComboBox" prefWidth="400.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="4" />
