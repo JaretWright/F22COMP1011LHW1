@@ -57,33 +57,25 @@ public class DBUtility {
         return countries;
     }
 
-    public static ArrayList<Manufacturer> getManufacturersFromDB() throws SQLException {
+    public static ArrayList<Manufacturer> getManufacturersFromDB() {
         ArrayList<Manufacturer> manufacturers = new ArrayList<>();
         String sql = "SELECT * from manufacturers";
-        try(
+        try (
                 Connection conn = DriverManager.getConnection(connURL, user, pw);
                 Statement statement = conn.createStatement();
                 ResultSet resultSet = statement.executeQuery(sql);
-        )
-        {
-        try{
-            //loop over the resultSet and create CountryCode objects
-            while (resultSet.next())
-            {
-                int id = resultSet.getInt("manufacturerID");
-                String name = resultSet.getString("name");
-                String countryCode = resultSet.getString("countryCode");
-                Manufacturer manufacturer = new Manufacturer(id,name,countryCode);
-                manufacturers.add(manufacturer);
+        ) {
+                //loop over the resultSet and create CountryCode objects
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("manufacturerID");
+                    String name = resultSet.getString("name");
+                    String countryCode = resultSet.getString("countryCode");
+                    Manufacturer manufacturer = new Manufacturer(id, name, countryCode);
+                    manufacturers.add(manufacturer);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        } finally {
-            if (resultSet != null)
-                resultSet.close();
-        }
         return manufacturers;
-        }
     }
 }

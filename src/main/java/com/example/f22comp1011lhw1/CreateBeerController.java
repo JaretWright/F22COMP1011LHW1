@@ -33,7 +33,7 @@ public class CreateBeerController implements Initializable {
     private TextArea descriptionTextArea;
 
     @FXML
-    private ComboBox<String> manufacturerComboBox;
+    private ComboBox<Manufacturer> manufacturerComboBox;
 
     @FXML
     private TextField nameTextField;
@@ -50,10 +50,7 @@ public class CreateBeerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //update the ComboBox objects with a collection
-        List<String> manufacturers = Arrays.asList("Molson Coors","Modello",
-                "Anheimer Bush","Heineken","Budweiser","Moosehead");
-        Collections.sort(manufacturers);
-        manufacturerComboBox.getItems().addAll(manufacturers);
+        manufacturerComboBox.getItems().addAll(DBUtility.getManufacturersFromDB());
 
         typeOfBeerComboBox.getItems().addAll(Beer.getBeerTypes());
 
