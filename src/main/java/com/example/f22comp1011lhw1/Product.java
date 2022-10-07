@@ -41,7 +41,7 @@ public class Product {
     }
 
     public void setDescription(String description) {
-        if (description.trim().length()<=250)
+        if (description.trim().length()<=300)
             this.description = description.trim();
         else
             throw new IllegalArgumentException("description must be a max of 250 characters");

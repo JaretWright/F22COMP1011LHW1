@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class Beer extends Product{
+    private int beerID;
     private BottleType bottleType;
     private BeerType beerType;
     private float alcoholPercentage;
-    private float rating;
+    private int rating;
 
     public Beer(String name, Manufacturer manufacturer, String description,
                 double price, BeerType beerType, BottleType bottleType,
@@ -19,6 +20,26 @@ public class Beer extends Product{
         setBottleType(bottleType);
         setAlcoholPercentage(alcoholPercentage);
         setRating(rating);
+    }
+
+    public Beer(int beerID, String name, Manufacturer manufacturer, String description, double price, BottleType bottleType, BeerType beerType, float alcoholPercentage, int rating) {
+        this(name, manufacturer, description, price,beerType,bottleType,alcoholPercentage,rating);
+        setBeerID(beerID);
+    }
+
+    public int getBeerID() {
+        return beerID;
+    }
+
+    public void setBeerID(int beerID) {
+        if (beerID>0)
+            this.beerID = beerID;
+        else
+            throw new IllegalArgumentException("BeerID must be greater than 0");
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public BeerType getBeerType() {
@@ -85,25 +106,22 @@ public class Beer extends Product{
 
     }
 
-    public int getVolume() {
-        return getBottleTypes().get(bottleType);
-    }
-
-
-    public float getRating() {
-        return rating;
-    }
-
-    /**
-     *
-     * @param rating
-     */
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
 
     public String toString()
     {
         return String.format("%s - $%.2f" , getName(), getPrice());
+    }
+
+    /**
+     * This method will return the country code for the Manufacturer
+     */
+    public String getCountryCode()
+    {
+        return getManufacturer().getCountryCode();
+    }
+
+    public int getVolume()
+    {
+        return bottleType.getVolume();
     }
 }

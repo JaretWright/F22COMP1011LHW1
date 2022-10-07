@@ -139,14 +139,15 @@ public class DBUtility {
                         resultSet.getInt("volume"),
                         resultSet.getString("bottleName"));
 
+                int beerID = resultSet.getInt("beerID");
                 String beerName = resultSet.getString("beerName");
                 String description = resultSet.getString("description");
                 double price = resultSet.getDouble("price");
                 float alcohol = resultSet.getFloat("alcohol");
                 int rating = resultSet.getInt("rating");
 
-                Beer newBeer = new Beer(beerName,manufacturer,description,price,
-                                    beerType,bottleType,alcohol,rating);
+                Beer newBeer = new Beer(beerID, beerName,manufacturer,description,price,
+                                    bottleType,beerType, alcohol,rating);
                 beer.add(newBeer);
             }
         } catch (Exception e) {
