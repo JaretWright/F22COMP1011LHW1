@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class Beer extends Product{
-    private String bottleType;
+    private BottleType bottleType;
     private BeerType beerType;
     private float alcoholPercentage;
     private float rating;
