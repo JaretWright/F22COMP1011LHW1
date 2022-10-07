@@ -1,8 +1,15 @@
 .root{
     -fx-font-size: 20pt;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: linear-gradient(from 400px 400px to 800px 800px,#1976D2,#2196F3);
 }
 
 .error{
     -fx-border-color: red;
     -fx-border-width: 2px;
+}
+
+#header{
+    -fx-font-size: 35pt;
+    -fx-text-fill: #FFFFFF;
 }

@@ -13,7 +13,7 @@ import java.util.TreeMap;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("create-beer-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("table-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Wright Way Beer Co.");
         stage.setScene(scene);
