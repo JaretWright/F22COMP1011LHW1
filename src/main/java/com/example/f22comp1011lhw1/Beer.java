@@ -11,7 +11,9 @@ public class Beer extends Product{
     private float alcoholPercentage;
     private float rating;
 
-    public Beer(String name, Manufacturer manufacturer, String description, double price, BeerType beerType, String bottleType, float alcoholPercentage, int rating) {
+    public Beer(String name, Manufacturer manufacturer, String description,
+                double price, BeerType beerType, BottleType bottleType,
+                float alcoholPercentage, int rating) {
         super(name, manufacturer, description, price);
         setBeerType(beerType);
         setBottleType(bottleType);
@@ -42,7 +44,7 @@ public class Beer extends Product{
     }
 
 
-    public String getBottleType() {
+    public BottleType getBottleType() {
         return bottleType;
     }
 
@@ -66,14 +68,8 @@ public class Beer extends Product{
      * Validates that the bottle type is one of the following: can, tall can, bottle, keg
      * @param bottleType
      */
-    public void setBottleType(String bottleType) {
-
-        bottleType = bottleType.trim().toLowerCase();
-        if (getBottleTypes().keySet().contains(bottleType))
+    public void setBottleType(BottleType bottleType) {
             this.bottleType = bottleType;
-        else
-            throw new IllegalArgumentException(bottleType + " is not valid, use one of "
-                                +getBottleTypes());
     }
 
     public float getAlcoholPercentage() {

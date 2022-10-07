@@ -24,7 +24,7 @@ public class CreateBeerController implements Initializable {
     private TextField alchoholTextField;
 
     @FXML
-    private ComboBox<String> bottleTypeComboBox;
+    private ComboBox<BottleType> bottleTypeComboBox;
 
     @FXML
     private TextArea descriptionTextArea;
@@ -51,7 +51,7 @@ public class CreateBeerController implements Initializable {
 
         typeOfBeerComboBox.getItems().addAll(DBUtility.getBeerTypes());
 
-        bottleTypeComboBox.getItems().addAll(Beer.getBottleTypes().keySet());
+//        bottleTypeComboBox.getItems().addAll(Beer.getBottleTypes().keySet());
 
         outputLabel.setText("");
 
