@@ -106,11 +106,14 @@ public class DBUtility {
      */
     public static ArrayList<Beer> getBeerFromDB() {
         ArrayList<Beer> beer = new ArrayList<>();
-        String sql = "SELECT beerID, beer.productID,rating,products.name AS beerName,products.manufacturerID,price,sku,description, " +
-                "beer.bottletypeID,bottletypes.name AS bottleName,volume,manufacturers.name,countryCode " +
+        String sql = "SELECT beerID, beer.productID,rating,products.name AS beerName,products.manufacturerID,price,sku, " +
+                "products.description, alcohol, " +
+                "beer.bottletypeID,bottletypes.name AS bottleName,volume,manufacturers.name,countryCode, " +
+                "beer.beerTypeID, beerTypes.name AS beerTypeName, beerTypes.description AS beerTypesDescription " +
                 "FROM beer INNER JOIN products ON beer.productID = products.productID " +
                 "INNER JOIN bottletypes ON bottletypes.bottletypeID = beer.bottletypeID " +
                 "INNER JOIN manufacturers ON manufacturers.manufacturerID = products.manufacturerID " +
+                "INNER JOIN beerTypes ON beerTypes.beerTypeID = beer.beerTypeID " +
                 "ORDER BY beerID;";
         try (
                 Connection conn = DriverManager.getConnection(connURL, user, pw);
@@ -125,15 +128,23 @@ public class DBUtility {
                             resultSet.getString("name"),
                             resultSet.getString("countryCode"));
 
+                //Create a BeerType Object
                 BeerType beerType = new BeerType(resultSet.getInt("beerTypeID"),
                         resultSet.getString("beerTypeName"),
                         resultSet.getString("beerTypesDescription"));
+
+                //Create a bottleType Object
+                BottleType bottleType = new BottleType(
+                        resultSet.getInt("bottleTypeID"),
+                        resultSet.getInt("volume"),
+                        resultSet.getString("bottleName"));
 
                 String beerName = resultSet.getString("beerName");
                 String description = resultSet.getString("description");
                 double price = resultSet.getDouble("price");
 
-                Beer newBeer = new Beer(beerName,manufacturer,description,price,beerType,)
+                Beer newBeer = new Beer(beerName,manufacturer,description,price,
+                                    beerType,bottleType,)
             }
         } catch (Exception e) {
             e.printStackTrace();
