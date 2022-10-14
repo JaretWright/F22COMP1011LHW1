@@ -1,7 +1,13 @@
 package com.example.f22comp1011lhw1;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class DBUtility {
     //to access a MySQL server, we need the user name, password,
@@ -154,5 +160,78 @@ public class DBUtility {
             e.printStackTrace();
         }
         return beer;
+    }
+
+    public static ObservableList<PieChart.Data> getUnitsSoldByManufacturer() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        String sql = "SELECT manufacturers.name, SUM(quantity) AS unitsSold " +
+                "FROM products INNER JOIN sales ON products.productID = sales.productID " +
+                "INNER JOIN manufacturers on products.manufacturerID = manufacturers.manufacturerID "+
+                "GROUP BY manufacturers.manufacturerID;";
+
+        try (
+                Connection conn = DriverManager.getConnection(connURL, user, pw);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        ) {
+            //loop over the resultSet and create PieChart.Data objects
+            while (resultSet.next()) {
+                String manufacturer = resultSet.getString("name");
+                int unitSold = resultSet.getInt("unitsSold");
+                pieChartData.add(new PieChart.Data(manufacturer,unitSold));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pieChartData;
+    }
+
+
+    public static ArrayList<Integer> getSalesYears() {
+        ArrayList<Integer> years = new ArrayList<>();
+
+        String sql = "SELECT YEAR(dateSold) AS year FROM sales " +
+                "GROUP BY YEAR(dateSold);";
+
+        try (
+                Connection conn = DriverManager.getConnection(connURL, user, pw);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        ) {
+            //loop over the resultSet and create PieChart.Data objects
+            while (resultSet.next()) {
+                years.add(resultSet.getInt("year"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return years;
+    }
+
+    public static XYChart.Series<String, Double> getSalesByYear(Integer yearSelected) {
+        XYChart.Series<String, Double> sales = new XYChart.Series<>();
+
+        String sql = "SELECT products.name, SUM(price*quantity) AS sales " +
+                "FROM products INNER JOIN sales ON products.productID = sales.productID " +
+                "WHERE YEAR(dateSold) =" + yearSelected +
+                " GROUP BY products.productID;";
+
+        try (
+                Connection conn = DriverManager.getConnection(connURL, user, pw);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        ) {
+            //loop over the resultSet and create PieChart.Data objects
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                double salesAmount = resultSet.getDouble("sales");
+                sales.getData().add(new XYChart.Data<>(name,salesAmount));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        sales.setName(yearSelected.toString());
+        return sales;
     }
 }

@@ -13,3 +13,8 @@
     -fx-font-size: 35pt;
     -fx-text-fill: #FFFFFF;
 }
+
+.chart-bar{
+    -fx-background-color: rgb(3,190,252);
+    -fx-border-color: rgb(37,42,43);
+}

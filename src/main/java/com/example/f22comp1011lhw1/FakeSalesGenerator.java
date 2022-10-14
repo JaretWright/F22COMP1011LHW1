@@ -11,13 +11,12 @@ public class FakeSalesGenerator {
         try(
                 Formatter formatter = new Formatter("salesData.txt");
                 ) {
-            for (int i = 1; i <= 2000; i++) {
+            for (int i = 1; i <= 500; i++) {
                 //INSERT INTO sales (productID, quantity, dateSold) VALUES (1,12,'2022-09-12');
-                int productID = rng.nextInt(1,5);
                 int unitsSold = rng.nextInt(1,25);
                 LocalDate salesDate = LocalDate.now().minusDays(rng.nextInt(720));
                 formatter.format("INSERT INTO sales (productID, quantity, dateSold) VALUES " +
-                        "(%d,%d,'%s');\n",productID,unitsSold,salesDate);
+                        "(%d,%d,'%s');\n",4,unitsSold,salesDate);
             }
         }catch (Exception e)
         {
